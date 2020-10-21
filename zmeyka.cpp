@@ -47,6 +47,10 @@ void Draw()
 {
     // Очистка экрана
     system("cls");
+    CONSOLE_CURSOR_INFO curs = {0};
+    curs.dwSize = sizeof(curs);
+    curs.bVisible = FALSE;
+    ::SetConsoleCursorInfo(::GetStdHandle(STD_OUTPUT_HANDLE), &curs);
     // Нарисуем верхнюю границу поля
     for (int i = 0; i < width; i++)
         cout << "#";
