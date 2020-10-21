@@ -27,7 +27,7 @@ enum eDirection
 eDirection dir;
 
 // Первоночальные настройки
-viod Setup()
+void Setup()
 {
     gameOver = false;
     // Начальное положение змейки (стоим на месте)
