@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <conio.h>
+#include <windows.h>
 
 using namespace std;
 
@@ -47,10 +48,6 @@ void Draw()
 {
     // Очистка экрана
     system("cls");
-    CONSOLE_CURSOR_INFO curs = {0};
-    curs.dwSize = sizeof(curs);
-    curs.bVisible = FALSE;
-    ::SetConsoleCursorInfo(::GetStdHandle(STD_OUTPUT_HANDLE), &curs);
     // Нарисуем верхнюю границу поля
     for (int i = 0; i < width; i++)
         cout << "#";
@@ -87,9 +84,19 @@ void Logic()
 {
 }
 
+// Отключение видимости курсора
+void Blinking(int off = 99)
+{
+    CONSOLE_CURSOR_INFO cci;
+    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cci);
+    cci.bVisible = false;
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cci);
+}
+
 int main()
 {
     Setup();
+    Blinking();
     while (!gameOver)
     {
         Draw();
