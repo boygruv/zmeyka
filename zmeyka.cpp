@@ -79,6 +79,8 @@ void Draw()
         cout << "#";
     // Выводим конец строки
     cout << endl;
+    // Вывод счета
+    cout << "Score: " << score << endl;
 }
 
 // Обработка нажатий клавиатуры
@@ -110,6 +112,7 @@ void Input()
 // Основная логика
 void Logic()
 {
+    // Изменение координат змейки
     switch (dir)
     {
     case LEFT:
@@ -124,6 +127,19 @@ void Logic()
     case DOWN:
         y++;
         break;
+    }
+
+    // При выходе за границы поля заканчиваем игру
+    if (x > width || x < 0 || y > height || y < 0)
+        gameOver = true;
+    // Поедание фрукта и выставление очков
+    if (x == fruitX && y == fruitY)
+    {
+        // Увеличим значение очков
+        score += 10;
+        // Выведем новый фрукт
+        fruitX = rand() % width;
+        fruitY = rand() % height;
     }
 }
 
