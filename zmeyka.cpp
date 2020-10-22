@@ -46,6 +46,7 @@ void Setup()
 // Отрисовка карты
 void Draw()
 {
+    Sleep(300);
     // Очистка экрана
     system("cls");
     // Нарисуем верхнюю границу поля
@@ -64,7 +65,7 @@ void Draw()
             if (i == y && j == x)
                 // Выводим змейку
                 cout << "0";
-            else if (x == fruitY && j == fruitX)
+            else if (i == fruitY && j == fruitX)
                 // Выводим фрукт
                 cout << "F";
             else
