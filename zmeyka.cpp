@@ -13,6 +13,10 @@ const int height = 20;
 int x, y;
 // Координаты фрукта
 int fruitX, fruitY;
+// Массивы для координат хвоста
+int tailX[100], tailY[100];
+// Кол-во элементов хвоста
+int nTail;
 // Счет
 int score;
 // Перечисления для хранения движения
@@ -69,8 +73,21 @@ void Draw()
                 // Выводим фрукт
                 cout << "F";
             else
-                // Заполняем внутри поля пробелами
-                cout << " ";
+            {
+                // Рисуем хвост
+                bool print = false;
+                for (int k = 0; k < nTail; k++)
+                {
+                    if (tailX[k] == j && tailY[k] == i)
+                    {
+                        print = true;
+                        cout << "o";
+                    }
+                }
+                if (!print)
+                    // Заполняем пустые поля пробелами
+                    cout << " ";
+            }
         }
         cout << endl;
     }
@@ -113,6 +130,23 @@ void Input()
 // Основная логика
 void Logic()
 {
+    // Переменные для хвоста
+    int prevX = tailX[0];
+    int prevY = tailY[0];
+    int prev2X, prev2Y;
+    tailX[0] = x;
+    tailY[0] = y;
+
+    for (int i = 1; i < nTail; i++)
+    {
+        prev2X = tailX[i];
+        prev2Y = tailY[i];
+        tailX[i] = prevX;
+        tailY[i] = prevY;
+        prevX = prev2X;
+        prevY = prev2Y;
+    }
+
     // Изменение координат змейки
     switch (dir)
     {
@@ -130,9 +164,17 @@ void Logic()
         break;
     }
 
-    // При выходе за границы поля заканчиваем игру
+    // При столкновении со стенкой заканчиваем игру
     if (x > width || x < 0 || y > height || y < 0)
         gameOver = true;
+
+    // Проверка не съели ли мы свой хвост
+    for (int i = 0; i < nTail; i++)
+    {
+        if (tailX[i] == x && tailY[i] == y)
+            gameOver = true;
+    }
+
     // Поедание фрукта и выставление очков
     if (x == fruitX && y == fruitY)
     {
@@ -141,6 +183,8 @@ void Logic()
         // Выведем новый фрукт
         fruitX = rand() % width;
         fruitY = rand() % height;
+        // Увеличим длинну хвоста
+        nTail++;
     }
 }
 
