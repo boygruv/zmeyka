@@ -92,7 +92,7 @@ void Input()
         case 'a':
             dir = LEFT;
             break;
-        case 'b':
+        case 'd':
             dir = RIGHT;
             break;
         case 'w':
