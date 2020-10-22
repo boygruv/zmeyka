@@ -6,7 +6,7 @@ using namespace std;
 
 bool gameOver;
 // Ширина поля
-const int width = 20;
+const int width = 40;
 // Высота поля
 const int height = 20;
 // Координаты змейки
@@ -46,6 +46,7 @@ void Setup()
 // Отрисовка карты
 void Draw()
 {
+    Sleep(300);
     // Очистка экрана
     system("cls");
     // Нарисуем верхнюю границу поля
@@ -64,7 +65,7 @@ void Draw()
             if (i == y && j == x)
                 // Выводим змейку
                 cout << "0";
-            else if (x == fruitY && j == fruitX)
+            else if (i == fruitY && j == fruitX)
                 // Выводим фрукт
                 cout << "F";
             else
@@ -93,7 +94,7 @@ void Input()
         case 'a':
             dir = LEFT;
             break;
-        case 'b':
+        case 'd':
             dir = RIGHT;
             break;
         case 'w':
@@ -154,8 +155,8 @@ void Blinking(int off = 99)
 
 int main()
 {
-    Setup();
     Blinking();
+    Setup();
     while (!gameOver)
     {
         Draw();
