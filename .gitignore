@@ -1,4 +1,4 @@
-.vsode/
+./.vsode/
 Debug
 Release
 *.vcxproj*
