@@ -165,8 +165,20 @@ void Logic()
     }
 
     // При столкновении со стенкой заканчиваем игру
-    if (x > width || x < 0 || y > height || y < 0)
-        gameOver = true;
+    //if (x > width || x < 0 || y > height || y < 0)
+    //  gameOver = true;
+
+    // Переход на другую стену поля по X
+    if (x >= width)
+        x = 0;
+    else if (x < 0)
+        x = width - 1;
+
+    // Переход на другую стену поля по Y
+    if (y >= height)
+        y = 0;
+    else if (y < 0)
+        y = height - 1;
 
     // Проверка не съели ли мы свой хвост
     for (int i = 0; i < nTail; i++)
