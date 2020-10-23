@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <conio.h>
+#include <stdlib.h>
 #include <windows.h>
 
 using namespace std;
@@ -50,6 +51,9 @@ void Setup()
 // Отрисовка карты
 void Draw()
 {
+    // Цвет поля Черный шрифт Зеленый
+    system("Color 1A");
+
     Sleep(300);
     // Очистка экрана
     system("cls");
@@ -66,9 +70,10 @@ void Draw()
         {
             if (j == 0 || j == width - 1)
                 cout << "#";
-            if (i == y && j == x)
+            if (i == y && j == x) {
                 // Выводим змейку
                 cout << "0";
+            }
             else if (i == fruitY && j == fruitX)
                 // Выводим фрукт
                 cout << "F";
