@@ -32,6 +32,16 @@ enum eDirection
 
 eDirection dir;
 
+// Функция раскраски символов
+// 0 - Black     4 - Red        8 - Gray            C - Light Red
+// 1 - Blue      5 - Purple     9 - Light Blue      D - Light Purple
+// 2 - Green     6 - Yellow     A - Light Green     E - Light Yellow
+// 3 - Aqua      7 - White      B - Light Aqua      F - Bright White
+void SetColor(int text, int bg) {
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdOut, (WORD)((bg << 4) | text));
+}
+
 // Первоночальные настройки
 void Setup()
 {
@@ -46,14 +56,13 @@ void Setup()
     fruitY = rand() % height;
     // Начальный счет
     score = 0;
+    // Дефолтная раскраска
+    SetColor(7, 0);
 }
 
 // Отрисовка карты
 void Draw()
 {
-    // Цвет поля Черный шрифт Зеленый
-    system("Color 1A");
-
     Sleep(300);
     // Очистка экрана
     system("cls");
@@ -71,12 +80,17 @@ void Draw()
             if (j == 0 || j == width - 1)
                 cout << "#";
             if (i == y && j == x) {
+                // Цвет змейки
+                SetColor(2, 0);
                 // Выводим змейку
                 cout << "0";
             }
-            else if (i == fruitY && j == fruitX)
+            else if (i == fruitY && j == fruitX) {
+                // Цвет фрукта
+                SetColor(6, 0);
                 // Выводим фрукт
                 cout << "F";
+            }
             else
             {
                 // Рисуем хвост
@@ -85,13 +99,17 @@ void Draw()
                 {
                     if (tailX[k] == j && tailY[k] == i)
                     {
+                        SetColor(2, 0);
                         print = true;
                         cout << "o";
                     }
                 }
-                if (!print)
+                if (!print) {
+                    // Дефолтный цвет в пустых клетках поля
+                    SetColor(7, 0);
                     // Заполняем пустые поля пробелами
                     cout << " ";
+                }
             }
         }
         cout << endl;
